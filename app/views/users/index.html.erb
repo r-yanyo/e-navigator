@@ -1,11 +1,28 @@
-<% @users.each do |user| %>
-  <div class="user-info"">
-    <ul>
-      <li><%= user.email %></li>    
-      <li><%= user.username %></li>
-      <li><%= user.birthday %></li>
-      <li><%= user.gender %></li>
-      <li><%= user.school %></li>
-    </ul>
-  </div>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>email</th>
+      <th>年齢</th>
+      <th>性別</th>
+      <th>学校</th>
+      <th>面接日時</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>    
+        <td><%= user.birthday %></td>
+        <td><%= user.gender %></td>
+        <td><%= user.school %></td>
+        <td></td>
+        <td>
+        <%= link_to '面接一覧', '/interviews/'+user.id.to_s, method: :get%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
