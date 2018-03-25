@@ -1,8 +1,14 @@
-<% @interviews.each do |interview| %>
-  <div class="interview-info"">
-    <ul>
-      <li><%= interview.date %></li>    
-      <li><%= interview.acceptance %></li>
-    </ul>
-  </div>
-<% end %>
+<table>
+  <thead>
+    <th>面接日時</th>
+    <th>承認状態</th>
+  </thead>
+  <tbody>
+    <tr>
+      <% @interviews.each do |interview| %>
+        <td><%= interview.date %></td>    
+        <td><%= interview.acceptance %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
