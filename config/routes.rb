@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => "users/registrations"
   }
-  resources :interviews, :users, only: [:index]
+  get '/interviews/:id', to: 'interviews#index'
+  get '/interviews', to: 'interviews#index'  
+  resources :users, only: [:index]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
