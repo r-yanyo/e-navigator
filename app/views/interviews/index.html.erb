@@ -1,14 +1,23 @@
+<% if current_user == @user%>
+  <%= link_to '新規面接作成', interviews_new_path , method: :get%>  
+<% end %>
 <table>
   <thead>
     <th>面接日時</th>
     <th>承認状態</th>
+    <th></th>
+    <th></th>
   </thead>
   <tbody>
-    <tr>
-      <% @interviews.each do |interview| %>
+    <% @interviews.each do |interview| %>
+      <tr>
         <td><%= interview.date %></td>    
         <td><%= interview.acceptance %></td>
-      <% end %>
-    </tr>
+        <% if current_user == @user%>
+          <td><%= link_to '編集', '/interviews/edit/'+interview.id.to_s, method: :get%></td>
+          <td><%= link_to '削除', '/interviews/delete/'+interview.id.to_s, method: :post, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
 </table>
