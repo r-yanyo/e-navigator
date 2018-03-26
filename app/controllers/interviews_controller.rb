@@ -2,17 +2,12 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, :setInterview
   
   def index
-    id = params[:id]
-    if id == nil
-      @user = current_user
+    user_id = params[:id]
+    @user = User.find_by(id: user_id)
+    if @user
       @interviews = @user.interviews
     else
-      @user = User.find_by(id: id)
-      if @user
-        @interviews = @user.interviews
-      else
-        render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
-      end
+      render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
     end
   end
 
@@ -25,7 +20,7 @@ class InterviewsController < ApplicationController
     @interview = Interview.new(interview_params)
     @interview.acceptance = "hold"
     if @interview.save
-      redirect_to interviews_path
+      redirect_to current_user_interviews_path
     else
       render 'new'
     end
@@ -37,7 +32,7 @@ class InterviewsController < ApplicationController
 
   def update
     if @interview.update_attributes(interview_params)
-      redirect_to interviews_path
+      redirect_to current_user_interviews_path
     else
       render 'edit'
     end
@@ -45,7 +40,7 @@ class InterviewsController < ApplicationController
 
   def delete
     @interview.destroy
-    redirect_to interviews_path
+    redirect_to current_user_interviews_path
   end
 
   private
@@ -56,5 +51,9 @@ class InterviewsController < ApplicationController
 
     def setInterview
       @interview = Interview.find_by(id: params[:id])
+    end
+
+    def current_user_interviews_path
+      interviews_path+"/"+current_user.id.to_s
     end
 end
