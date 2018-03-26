@@ -50,7 +50,8 @@ class InterviewsController < ApplicationController
     redirect_to interviews_path
   end
 
-  def interview_params
-    params.require(:interview).permit(:date, :acceptance, :user_id)
-  end
+  private
+    def interview_params
+      params.require(:interview).permit(:date, :acceptance, :user_id)
+    end
 end
