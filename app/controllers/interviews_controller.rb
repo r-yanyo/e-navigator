@@ -23,7 +23,7 @@ class InterviewsController < ApplicationController
 
   def create
     @interview = Interview.new(interview_params)
-    @interview.acceptance = "保留"
+    @interview.acceptance = "hold"
     if @interview.save
       redirect_to interviews_path
     else
