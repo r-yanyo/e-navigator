@@ -1,5 +1,5 @@
 class InterviewsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :setInterview
   
   def index
     id = params[:id]
@@ -33,11 +33,9 @@ class InterviewsController < ApplicationController
 
   def edit
     @user = current_user
-    @interview = Interview.find_by(id: params[:id])
   end
 
   def update
-    @interview = Interview.find_by(id: params[:id])
     if @interview.update_attributes(interview_params)
       redirect_to interviews_path
     else
@@ -46,12 +44,17 @@ class InterviewsController < ApplicationController
   end
 
   def delete
-    Interview.find_by(id: params[:id]).destroy
+    @interview.destroy
     redirect_to interviews_path
   end
 
   private
+    
     def interview_params
       params.require(:interview).permit(:date, :acceptance, :user_id)
+    end
+
+    def setInterview
+      @interview = Interview.find_by(id: params[:id])
     end
 end
