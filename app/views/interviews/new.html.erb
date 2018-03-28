@@ -1,6 +1,6 @@
 <h2>新規面接作成</h2>
 
-<%= form_for(@interview, url: interviews_create_path, html: { method: :post }) do |f| %>
+<%= form_for(@interview, url: user_interviews_path, html: { method: :post }) do |f| %>
 
   <div class="field">
     <%= f.label :date %><br />

@@ -2,8 +2,7 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, :setInterview
   
   def index
-    user_id = params[:id]
-    @user = User.find_by(id: user_id)
+    @user = User.find_by(id: params[:user_id])
     if @user
       @interviews = @user.interviews
     else
@@ -38,7 +37,7 @@ class InterviewsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @interview.destroy
     redirect_to current_user_interviews_path
   end
@@ -54,6 +53,6 @@ class InterviewsController < ApplicationController
     end
 
     def current_user_interviews_path
-      interviews_path+"/"+current_user.id.to_s
+      user_interviews_path(current_user.id)
     end
 end

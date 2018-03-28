@@ -12,7 +12,7 @@
     <%= link_to 'Top', root_path, method: :get%>
     <% if user_signed_in? %>
       <%= link_to 'Profile', edit_user_registration_path, method: :get%>
-      <%= link_to 'Interviews', interviews_path+"/"+current_user.id.to_s, method: :get%>
+      <%= link_to 'Interviews', user_interviews_path(current_user.id.to_s), method: :get%>
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
     <%= yield %>

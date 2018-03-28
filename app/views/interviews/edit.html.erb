@@ -1,6 +1,6 @@
 <h2>面接編集</h2>
 
-<%= form_for(@interview, url: '/interviews/update/'+@interview.id.to_s, html: { method: :put }) do |f| %>
+<%= form_for(@interview, url: user_interview_path(current_user.id,@interview.id), html: { method: :put }) do |f| %>
 
   <div class="field">
     <%= f.label :date %><br />
