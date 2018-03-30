@@ -1,5 +1,6 @@
 class InterviewsController < ApplicationController
-  before_action :authenticate_user!, :setInterview
+  before_action :authenticate_user!
+  before_action :set_interview, only: [:edit, :update, :destroy]
   
   def index
     @user = User.find_by(id: params[:user_id])
@@ -48,7 +49,7 @@ class InterviewsController < ApplicationController
       params.require(:interview).permit(:date, :acceptance, :user_id)
     end
 
-    def setInterview
+    def set_interview
       @interview = Interview.find_by(id: params[:id])
     end
 
