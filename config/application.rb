@@ -29,7 +29,7 @@ module ENavigator
     config.generators.system_tests = nil
 
     # Set time zone
-    config.time_zone = 'Tokyo'
+    config.time_zone = 'Asia/Tokyo'
 
   end
 end
