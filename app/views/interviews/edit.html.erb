@@ -1,0 +1,18 @@
+<h2>面接編集</h2>
+
+<%= form_for(@interview, url: user_interview_path(current_user.id,@interview.id), html: { method: :put }) do |f| %>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date, :use_month_numbers => true,:start_year => Time.current.year%>
+  </div>
+
+   <div class="field">
+    <%= f.hidden_field :user_id, :value => @user.id %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit "update" %>
+  </div>
+
+<% end %>
