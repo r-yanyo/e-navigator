@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_interview, only: [:edit, :update, :destroy]
+  before_action :get_interview, only: [:edit, :update, :destroy]
   
   def index
     @user = User.find_by(id: params[:user_id])
@@ -20,7 +20,7 @@ class InterviewsController < ApplicationController
     @interview = Interview.new(interview_params)
     @interview.acceptance = "hold"
     if @interview.save
-      redirect_to current_user_interviews_path
+      redirect_to user_interviews_path(current_user.id)
     else
       render 'new'
     end
@@ -31,29 +31,23 @@ class InterviewsController < ApplicationController
   end
 
   def update
+    @user = User.find_by(id: @interview.user_id)
     if @interview.update_attributes(interview_params)
-      redirect_to current_user_interviews_path
-    else
-      render 'edit'
+      redirect_to user_interviews_path(@user.id)
     end
   end
 
   def destroy
     @interview.destroy
-    redirect_to current_user_interviews_path
+    redirect_to user_interviews_path(current_user.id)
   end
 
   private
-    
     def interview_params
       params.require(:interview).permit(:date, :acceptance, :user_id)
     end
 
-    def set_interview
+    def get_interview
       @interview = Interview.find_by(id: params[:id])
-    end
-
-    def current_user_interviews_path
-      user_interviews_path(current_user.id)
     end
 end
