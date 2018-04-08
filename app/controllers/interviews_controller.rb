@@ -3,6 +3,7 @@ class InterviewsController < ApplicationController
   before_action :get_interview, only: [:edit, :update, :destroy, :update_acceptance]
   
   def index
+    @users = User.all
     @user = User.find_by(id: params[:user_id])
     if @user
       @interviews = @user.interviews
@@ -45,8 +46,7 @@ class InterviewsController < ApplicationController
     @interviews.where.not(id: @interview.id).update_all(acceptance: "reject")
     @interview.update_attribute(:acceptance, "accept")
 
-    @from_user = User.find_by(id: params[:from_user_id])
-    UserMailer.interview_email(@user,@from_user,@interview).deliver
+    UserMailer.interview_email(@user,current_user,@interview).deliver
 
     redirect_to user_interviews_path(@user.id)
   end
@@ -58,7 +58,7 @@ class InterviewsController < ApplicationController
 
   private
     def interview_params
-      params.require(:interview).permit(:date, :acceptance, :user_id)
+      params.require(:interview).permit(:date, :user_id)
     end
 
     def get_interview
