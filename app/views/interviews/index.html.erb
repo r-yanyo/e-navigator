@@ -28,6 +28,7 @@
   <%= form_for(@user, url: user_notify_path, html: { method: :post }) do |f| %>
 
   <div class="field">
+    <% @users = User.where.not(id: current_user.id) %>
     <%= f.select :email, @users.map{|user| user.email} %>
   </div>
 

@@ -3,7 +3,6 @@ class InterviewsController < ApplicationController
   before_action :get_interview, only: [:edit, :update, :destroy, :update_acceptance]
   
   def index
-    @users = User.all
     @user = User.find_by(id: params[:user_id])
     if @user
       @interviews = @user.interviews
