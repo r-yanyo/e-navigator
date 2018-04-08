@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :get_interview, only: [:edit, :update, :destroy]
+  before_action :get_interview, only: [:edit, :update, :destroy, :update_acceptance]
   
   def index
     @user = User.find_by(id: params[:user_id])
@@ -33,8 +33,20 @@ class InterviewsController < ApplicationController
   def update
     @user = User.find_by(id: @interview.user_id)
     if @interview.update_attributes(interview_params)
-      redirect_to user_interviews_path(@user.id)
+      redirect_to user_interviews_path(current_user.id)
+    else
+      redirect_to edit_user_interview_path(current_user.id)
     end
+  end
+
+  def update_acceptance
+    @user = User.find_by(id: @interview.user_id)
+    @interviews = @user.interviews
+    @interviews.where.not(id: @interview.id).update_all(acceptance: "reject")
+    @interview.update_attribute(:acceptance, "accept")
+
+
+    redirect_to user_interviews_path(@user.id)
   end
 
   def destroy

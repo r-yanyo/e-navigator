@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     :registrations => "users/registrations"
   }
   resources :users, only: [:index] do
-    resources :interviews
+    resources :interviews, except: [:show,:update]
+    put "interviews/:id", to: "interviews#update"
+    patch "interviews/:id", to: "interviews#update_acceptance"
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
