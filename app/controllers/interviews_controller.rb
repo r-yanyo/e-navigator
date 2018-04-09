@@ -5,7 +5,9 @@ class InterviewsController < ApplicationController
   def index
     @user = User.find_by(id: params[:user_id])
     if @user
-      @interviews = @user.interviews
+      @interviews = @user.interviews.order(:date)
+      @users = User.where.not(id: current_user.id)
+      @emails = @users.pluck("email")
     else
       render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
     end
