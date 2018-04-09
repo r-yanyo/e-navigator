@@ -5,9 +5,9 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def request
+  def notify
     @user = User.find_by(email: params[:user][:email])
-    UserMailer.request_interview(@user,current_user).deliver
+    UserMailer.notify_interview(@user,current_user).deliver
   end
 
   private
