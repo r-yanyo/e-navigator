@@ -47,7 +47,7 @@ class InterviewsController < ApplicationController
     @interviews.where.not(id: @interview.id).update_all(acceptance: "reject")
     @interview.update_attribute(:acceptance, "accept")
 
-    UserMailer.interview_email(@user,current_user,@interview).deliver
+    UserMailer.confirm_interview(@user,current_user,@interview).deliver
 
     redirect_to user_interviews_path(@user.id)
   end
