@@ -62,7 +62,7 @@ class InterviewsController < ApplicationController
       params.require(:interview).permit(:date, :user_id)
     end
 
-    def get_interview
+    def set_interview
       @interview = Interview.find_by(id: params[:id])
     end
 end
