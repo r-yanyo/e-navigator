@@ -5,9 +5,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def notify
+  def apply
     @user = User.find_by(email: params[:user][:email])
-    UserMailer.notify_interview(@user,current_user).deliver
+    UserMailer.apply_interview(@user,current_user).deliver
+    redirect_to user_interviews_path(current_user);
   end
 
   private

@@ -25,7 +25,7 @@
 </table>
 
 <% if current_user == @user %>
-  <%= form_for(@user, url: user_notify_path, html: { method: :post }) do |f| %>
+  <%= form_for(@user, url: user_apply_path, html: { method: :post }) do |f| %>
 
   <div class="field">
     <%= f.select :email, @emails %>

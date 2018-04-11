@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     :registrations => "users/registrations"
   }
   resources :users, only: [:index] do
-    post "/notify", to: "users#notify", as: "notify"
+    post "/apply", to: "users#apply", as: "apply"
     resources :interviews
     put "interviews/:id/accept", to: "interviews#update_acceptance", as: "interview_accept"
   end
