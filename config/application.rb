@@ -31,5 +31,9 @@ module ENavigator
     # Set time zone
     config.time_zone = 'Asia/Tokyo'
 
+    # Use env variables
+    Bundler.require(*Rails.groups)
+    Dotenv::Railtie.load
+
   end
 end

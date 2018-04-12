@@ -11,13 +11,30 @@
   <tbody>
     <% @interviews.each do |interview| %>
       <tr>
-        <td><%= interview.date %></td>    
+        <td><%= interview.date %></td>
         <td><%= interview.acceptance %></td>
         <% if current_user == @user%>
           <td><%= link_to '編集', edit_user_interview_path(current_user.id,interview.id), method: :get%></td>
           <td><%= link_to '削除', user_interview_path(current_user.id,interview.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <td><%= link_to '面接する', user_interview_accept_path(@user.id,interview.id), method: :put, data: { confirm: 'Are you sure?'}%></td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% if current_user == @user %>
+  <%= form_for(@user, url: user_apply_path, html: { method: :post }) do |f| %>
+
+  <div class="field">
+    <%= f.select :email, @emails %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "申請する" %>
+  </div>
+
+  <% end %>
+<% end %>
+
